@@ -1,0 +1,6 @@
+private.txt
+*.class
+*.[oa]
+!lib.a
+*~
+testing/
