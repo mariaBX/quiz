@@ -1,6 +1,2 @@
-private.txt
-*.class
-*.[oa]
-!lib.a
-*~
-testing/
+node_modules
+npm-debug.log
