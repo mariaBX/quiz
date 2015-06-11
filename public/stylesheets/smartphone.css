@@ -17,3 +17,6 @@ body {
 footer, input {
   font-size: large;
 }
+#ranza video {
+  width: 80%;
+}

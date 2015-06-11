@@ -20,6 +20,18 @@ section  {
   height: 200px;
 }
 
+#ranza {
+  float: right;
+}
+
+#ranza video {
+  height: 160px;
+}
+
+#burraXtrema {
+  float: left;
+}
+
 footer {
   clear: both; 
   display: block;
