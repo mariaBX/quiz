@@ -6,7 +6,7 @@ body {
   content: "Smartphone Layout"
 }
 
-h2 span, section h3 {
+h2 span, section h3, label.rem {
   display: none;
 }
 
@@ -14,8 +14,11 @@ body {
   font-size: xx-large;
 }
 
-footer, input {
+footer {
   font-size: large;
+}
+input, button {
+  font-size: x-large;
 }
 #ranza video {
   width: 80%;
