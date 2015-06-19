@@ -1,25 +1,37 @@
-<table>
-  <%if (quizes.length < 1) {%>
-    <p>No hay resultados que coincidan con los criterios de búsqueda<p>
-  <%}else{
-    var i; for (i=0; i < quizes.length; i++){%>
-    <tr>
-      <td><a href="quizes/<%= quizes[i].id%>"><%= quizes[i].pregunta %></a></td> 
-      <td><a href="quizes/<%= quizes[i].id%>/edit"><button>Editar</button></a></td>
-      <td>
-        <form method="post" action="quizes/<%=quizes[i].id%>?_method=delete">
-          <button type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta%>');">
-            Borrar
-          </button>
-        </form>
-      </td>
-    </tr>
-  <%}
-  }%>
-</table>
 <form method="get" action="/quizes">
   <p>Buscador</p>
   <input type="text" name="search" value="Texto a buscar"/>
-  <input type="submit" value="Enviar" />
+  <label for="tema" class="rem">Tema:</label>
+  <select name="tema">
+    <option value="">Todos</option>
+    <option value="otro">Otro</option>
+    <option value="humanidades">Humanidades</option>
+    <option value="ocio">Ocio</option>
+    <option value="ciencia">Ciencia</option>
+    <option value="tecnologia">Tecnología</option>
+  </select>
+  <input type="submit" value="Buscar" />
 </form>
+<div id="preguntas">
+  <table>
+    <%if (quizes.length < 1) {%>
+      <p>No hay resultados que coincidan con los criterios de búsqueda<p>
+    <%}else{
+      var i; for (i=0; i < quizes.length; i++){%>
+      <tr>
+        <td><label class="capitaliza" value="<%=quizes[i].tema%>"><%=quizes[i].tema%></label></td>
+        <td><a href="quizes/<%= quizes[i].id%>"><%= quizes[i].pregunta %></a></td> 
+        <td><a href="quizes/<%= quizes[i].id%>/edit"><button>Editar</button></a></td>
+        <td>
+          <form method="post" action="quizes/<%=quizes[i].id%>?_method=delete">
+            <button type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta%>');">
+              Borrar
+            </button>
+          </form>
+        </td>
+      </tr>
+    <%}
+    }%>
+  </table>
+</div>
 <a href="/quizes/new"><button type="button">Crear pregunta</button></a>

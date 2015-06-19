@@ -8,21 +8,28 @@ exports.load = function(req, res, next, quizId) {
       if (quiz) {
         req.quiz = quiz;
         next();
-      } else { next(new Error('No existe quizId=' + quizId)); }
+      } else {next(new Error('No existe quizId=' + quizId))}
     }
-  ).catch(function(error) { next(error);});
+  ).catch(function(error){next(error)});
 };
 exports.index = function(req,res) {
   var search = '';
+  var tema = '';
+  var query = '';
   if (req.query.search){
     search = req.query.search.replace(/\s+/g, '%');
   }
-  search = '%' + search + '%';
-  models.Quiz.findAll({where : ["pregunta like ? order by pregunta", search]}).then(
+  search = '%' + search + '%'; 
+  if(req.query.tema){
+    query = "pregunta like ? and tema = '" + req.query.tema + "' order by pregunta"; 
+  }else{
+    query = "pregunta like ? order by pregunta";
+  } 
+  models.Quiz.findAll({where : [query, search]}).then(
     function(quizes){   
-      res.render('quizes/index', {quizes: quizes, errors: []})
+      res.render('quizes/index', {quizes: quizes, errors: []});
     }
-  ).catch(function(error){next(error);})
+  ).catch(function(error){next(error)});
 };
 
 exports.show = function(req, res) {
@@ -55,7 +62,7 @@ exports.create = function (req, res) {
         res.render('quizes/new', {quiz:quiz, errors: err.errors});
       }else{
         //guarda en BBDD los campos pregunta y respuesta de quiz
-        quiz.save({fields: ["pregunta", "respuesta"]}).then (function (){
+        quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then (function (){
           res.redirect('/quizes')})      
       }
    }
@@ -71,15 +78,16 @@ exports.edit = function(req, res){
 //PUT /quizes/:id
 exports.update = function (req, res) {
   req.quiz.pregunta = req.body.quiz.pregunta;
-  req.quiz.pregunta = req.body.quiz.respuesta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tema = req.body.quiz.tema;
   req.quiz.validate().then (
     function (err){
       if (err){
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       }else{
-        res.quiz //guarda los cambios en la BBDD
-        .save ({fields: ["pregunta", "respuesta"]} )
-        .then (function(){res.redirect('/quizes')} )
+        req.quiz //guarda los cambios en la BBDD
+        .save ({fields: ["pregunta", "respuesta", "tema"]} )
+        .then (function(){res.redirect('/quizes');} );
       }
     } 
   );  

@@ -26,7 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(methodOverride('method'));
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

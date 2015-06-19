@@ -39,3 +39,24 @@ nav span {
   color: #F61;
   font-size: smaler
 }
+#preguntas {
+  height: 25%;
+  overflow: auto;
+  width: 80%;
+  margin: 20px;
+}
+
+#preguntas  td{
+  padding-left : 15px;
+}
+.capitaliza{
+  text-transform: capitalize;
+}
+
+.contenedor * {
+  margin-top: 5px;
+}
+
+.rem {
+  text-align: right;
+}
