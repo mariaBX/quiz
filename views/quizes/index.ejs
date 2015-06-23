@@ -18,9 +18,10 @@
       <p>No hay resultados que coincidan con los criterios de búsqueda<p>
     <%}else{
       var i; for (i=0; i < quizes.length; i++){%>
-      <tr>
+      <tr>                                   
         <td><label class="capitaliza" value="<%=quizes[i].tema%>"><%=quizes[i].tema%></label></td>
-        <td><a href="quizes/<%= quizes[i].id%>"><%= quizes[i].pregunta %></a></td> 
+        <td><a href="quizes/<%= quizes[i].id%>"><%= quizes[i].pregunta %></a></td>
+      <%if(session.user){%> 
         <td><a href="quizes/<%= quizes[i].id%>/edit"><button>Editar</button></a></td>
         <td>
           <form method="post" action="quizes/<%=quizes[i].id%>?_method=delete">
@@ -29,9 +30,13 @@
             </button>
           </form>
         </td>
+      <%}%>
       </tr>
     <%}
     }%>
   </table>
 </div>
-<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+<%if(session.user){%>
+  <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+<%}%>
+  
