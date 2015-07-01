@@ -39,11 +39,10 @@ nav span {
   color: #F61;
   font-size: smaler
 }
-#preguntas {
+#preguntas, #comentarios{
   height: 25%;
   overflow: auto;
   width: 80%;
-  margin: 20px;
 }
 
 #preguntas  td{
@@ -63,4 +62,8 @@ nav span {
 
 .right{
   float: right;
+}
+
+button{
+  margin-top: 5px;
 }

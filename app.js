@@ -42,7 +42,24 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', routes);
+app.use('/', function(req, res, next) {
+    //si está logado
+    if (req.session.user){
+        var ahora = new Date().getTime();
+        if ((ahora - req.session.time) > 120000) {
+           req.session.errors = [{"message": 'Sesión caducada. Identificate herman@'}];
+           delete req.session.user;
+           res.render('sessions/new', {errors: req.session.errors});
+        }else {
+            // hay que actualizar la hora almacenada
+            req.session.time = new Date().getTime();
+            next();
+        }
+    }else {
+        next();
+    }
+}, routes);
+
 
 
 // catch 404 and forward to error handler

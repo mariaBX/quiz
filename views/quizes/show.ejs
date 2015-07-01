@@ -3,16 +3,18 @@
   <input type="text" name="respuesta" value="Respuesta"/>
   <input type="submit" value="Enviar" />
 </form>
-
 <p><a href="/quizes/<%=quiz.id%>/comments/new"><button>Nuevo comentario</button></a></p>
-<p><strong>Comentarios:</strong></p>
+<p style="margin-top:5px;"><strong>Comentarios:</strong></p>
+<div id="comentarios">
 <%for(index in quiz.Comments){%>
   <%if(quiz.Comments[index].publicado || session.user){%>
-    <p><%=quiz.Comments[index].texto%></p>
+    <p><%=quiz.Comments[index].texto%>
     <%if(session.user && !quiz.Comments[index].publicado){%>
       <a href="/quizes/<%=quiz.id%>/comments/<%=quiz.Comments[index].id%>/publish">
         <button>Publicar</button>
       </a>
     <%}%>
+    </p>
   <%}%>  
 <%}%>  
+</div>
